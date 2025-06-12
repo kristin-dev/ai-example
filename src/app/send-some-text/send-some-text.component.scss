@@ -1,0 +1,75 @@
+.analyzer-container {
+  max-width: 1200px;
+}
+
+.input-section {
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.analyze-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #052049;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.analyze-btn:hover:not(:disabled) {
+  background-color: #052049BF;
+}
+
+.analyze-btn:disabled {
+  background-color: #052049BF;
+  cursor: not-allowed;
+}
+
+.results-section {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.error {
+  padding: 15px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.response {
+  padding: 15px;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  font-family: monospace;
+}
+
+h2, h3 {
+  color: #052049;
+}

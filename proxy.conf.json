@@ -1,0 +1,11 @@
+{
+  "/api/*": {
+    "target": "https://pdlw8deep0.execute-api.us-west-2.amazonaws.com/dev",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}
