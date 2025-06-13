@@ -3,35 +3,40 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-interface AnalyzeResponse {
-  grammar_issues: string;
-  punctuation_issues: string;
-  style_suggestions: string;
-  corrected_version: string;
-  style_enhanced_version: string;
-  raw_feedback: string;
+interface BookRecommendation {
+  title: string;
+  author: string;
+  publication_year: string;
+}
+
+interface BookRecommendationResponse {
+  analysis: string;
+  recommendations: BookRecommendation[];
+  reasoning: string;
+  raw_response: string;
   model: string;
   status: string;
 }
 
 @Component({
-  selector: 'app-send-some-text',
+  selector: 'app-book-recommendations',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './send-some-text.component.html',
-  styleUrl: './send-some-text.component.scss'
+  templateUrl: './book-recommendations.component.html',
+  styleUrl: './book-recommendations.component.scss'
 })
-export class SendSomeTextComponent {
+export class BookRecommendationsComponent {
   private http = inject(HttpClient);
 
-  inputText: string = 'Andy stirred the large pot of soup, watching as orange carrots and white potatoes bubbled in the broth. He and his mom had spent the morning cutting and dicing onions celery, and green beans.';
-  response: AnalyzeResponse | null = null;
+  inputText: string = 'Please recommend nonfiction books about teaching medicine, specifically books that mention anesthesiology.';
+  response: BookRecommendationResponse | null = null;
   error: string | null = null;
   isLoading: boolean = false;
 
-  private apiUrl = 'https://pdlw8deep0.execute-api.us-west-2.amazonaws.com/dev/analyze';
+  // Using proxy URL instead of direct API URL to avoid CORS
+  private apiUrl = '/api/books';
 
-  analyzeText(): void {
+  getRecommendations(): void {
     if (!this.inputText.trim()) {
       return;
     }
@@ -49,9 +54,9 @@ export class SendSomeTextComponent {
       text: this.inputText.trim()
     };
 
-    this.http.post<AnalyzeResponse>(this.apiUrl, payload, { headers })
+    this.http.post<BookRecommendationResponse>(this.apiUrl, payload, { headers })
       .subscribe(
-        (data: AnalyzeResponse) => {
+        (data: BookRecommendationResponse) => {
           this.response = data;
           this.isLoading = false;
         },
@@ -62,7 +67,7 @@ export class SendSomeTextComponent {
           } else if (err.status === 404) {
             this.error = 'API endpoint not found. Check the proxy configuration.';
           } else {
-            this.error = err.error?.message || err.message || 'An error occurred while analyzing the text';
+            this.error = err.error?.message || err.message || 'An error occurred while getting book recommendations';
           }
           this.isLoading = false;
           console.error('API Error:', err);
@@ -72,7 +77,9 @@ export class SendSomeTextComponent {
       );
   }
 
-  formatResponse(response: AnalyzeResponse): string {
-    return `Grammar Issues:\n${response.grammar_issues}\n\nPunctuation Issues:\n${response.punctuation_issues}\n\nStyle Suggestions:\n${response.style_suggestions}\n\nCorrected Version:\n${response.corrected_version}\n\nStyle Enhanced Version:\n${response.style_enhanced_version}`;
+  formatBookList(recommendations: BookRecommendation[]): string {
+    return recommendations.map((book, index) =>
+      `${index + 1}. ${book.title} by ${book.author} (${book.publication_year})`
+    ).join('\n');
   }
 }

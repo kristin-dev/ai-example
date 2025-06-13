@@ -58,7 +58,7 @@ main {
 .tab-nav {
   display: flex;
   background: white;
-  border-radius: 12px 12px 0 0;
+  // border-radius: 12px 12px 0 0;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin-bottom: 0;
@@ -102,7 +102,7 @@ main {
 
 .tab-content {
   background: white;
-  border-radius: 0 0 12px 12px;
+  // border-radius: 0 0 12px 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   min-height: 500px;
   position: relative;
@@ -163,7 +163,7 @@ main {
 
   .tab-nav {
     flex-direction: column;
-    border-radius: 12px;
+    // border-radius: 12px;
   }
 
   .tab-button {
@@ -179,7 +179,7 @@ main {
   }
 
   .tab-content {
-    border-radius: 12px;
+    // border-radius: 12px;
     margin-top: 20px;
   }
 

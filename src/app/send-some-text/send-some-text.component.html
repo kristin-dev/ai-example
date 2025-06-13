@@ -30,27 +30,27 @@
     <div *ngIf="response && !error" class="response">
       <div class="section" *ngIf="response?.grammar_issues">
         <h4>Grammar Issues:</h4>
-        <p>{{ response?.grammar_issues }}</p>
+        <p>{{ response.grammar_issues }}</p>
       </div>
 
       <div class="section" *ngIf="response?.punctuation_issues">
         <h4>Punctuation Issues:</h4>
-        <p>{{ response?.punctuation_issues }}</p>
+        <p>{{ response.punctuation_issues }}</p>
       </div>
 
       <div class="section" *ngIf="response?.style_suggestions">
         <h4>Style Suggestions:</h4>
-        <p>{{ response?.style_suggestions }}</p>
+        <p>{{ response.style_suggestions }}</p>
       </div>
 
       <div class="section" *ngIf="response?.corrected_version">
         <h4>Corrected Version:</h4>
-        <p class="corrected-text">{{ response?.corrected_version }}</p>
+        <p class="corrected-text">{{ response.corrected_version }}</p>
       </div>
 
       <div class="section" *ngIf="response?.style_enhanced_version">
         <h4>Style Enhanced Version:</h4>
-        <p class="enhanced-text">{{ response?.style_enhanced_version }}</p>
+        <p class="enhanced-text">{{ response.style_enhanced_version }}</p>
       </div>
     </div>
   </div>

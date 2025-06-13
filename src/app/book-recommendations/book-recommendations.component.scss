@@ -1,0 +1,177 @@
+.recommendations-container {
+  max-width: 1200px;
+}
+
+.input-section {
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #052049;
+}
+
+textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  resize: vertical;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #052049;
+  }
+}
+
+.recommend-btn {
+  margin-top: 15px;
+  padding: 12px 24px;
+  background-color: #052049;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.recommend-btn:hover:not(:disabled) {
+  background-color: #041a3a;
+}
+
+.recommend-btn:disabled {
+  background-color: #052049BF;
+  cursor: not-allowed;
+}
+
+.results-section {
+  border-top: 2px solid #eee;
+  padding-top: 30px;
+  margin-top: 20px;
+}
+
+.error {
+  padding: 15px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.section {
+  padding: 20px;
+  background-color: #f8fffe;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.recommendations-list {
+  background-color: #fff;
+  border: 2px solid #052049;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.book-card {
+  display: flex;
+  align-items: flex-start;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+}
+
+.loading {
+  color: #0e55c0;
+  font-weight: 500;
+}
+
+.book-number {
+  background-color: #052049;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.book-details {
+  flex: 1;
+}
+
+.book-title {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #052049;
+  line-height: 1.3;
+}
+
+.book-author {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.book-year {
+  margin: 0;
+  font-size: 12px;
+  color: #8a8a8a;
+}
+
+h2, h3 {
+  color: #052049;
+}
+
+h4 {
+  color: #052049;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .book-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .book-number {
+    margin: 0 auto 10px auto;
+  }
+}
