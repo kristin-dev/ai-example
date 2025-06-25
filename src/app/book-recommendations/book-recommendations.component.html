@@ -1,61 +1,81 @@
 <div class="recommendations-container">
   <h2>Book Recommendations</h2>
-  <ng-container *ngIf="isLoading">
-    <div><p class="loading">
-      <img src="/Loading_icon2.gif"> This can take some time to load, in the mean time let me tell you about some other cool things...
-    </p></div>
-  </ng-container>
+    <!-- Loading section - displays only while the api call is being made -->
+    @if (isLoading) {
+      <div><p class="loading">
+        <img src="/Loading_icon2.gif" alt="Loading Icon"> This can take some time to load, in the mean time, have you read anything recently that you can recommend?
+      </p></div>
+    }
 
+  <!-- Simple input, just a prompt for the AI -->
   <div class="input-section">
-    <label for="textInput">Describe the books you like:</label>
+    <label>Describe the books you like:</label>
     <textarea
-      id="textInput"
-      [(ngModel)]="inputText"
+      type="text"
+      [(ngModel)]="inputValue"
       placeholder="Tell us about books you've enjoyed, genres you like, or specific authors you love..."
       rows="6"
       cols="50"
-      class="text-input">
-    </textarea>
+      class="text-input"
+    ></textarea>
 
+    <!-- If there's no text in the input, disable the button so we don't make the call -->
     <button
-      (click)="getRecommendations()"
-      [disabled]="!inputText.trim() || isLoading"
+      (click)="logInConsole()"
+      [disabled]=" isLoading"
       class="recommend-btn">
       {{ isLoading ? 'Finding Recommendations...' : 'Get Book Recommendations' }}
     </button>
-  </div>
 
-  <div class="results-section" *ngIf="response || error">
+  <!-- Results section - only show if there are results and the api call has completed -->
+  @if (response || error) {
+  <div class="results-section">
     <h3>Your Personalized Recommendations:</h3>
 
-    <div *ngIf="error" class="error">
-      <strong>Error:</strong> {{ error }}
-    </div>
+    <!-- If there's an error let us know -->
+    @if (error) {
+  <div class="error">
+    <strong>Error:</strong> {{ error }}
+  </div>
+  }
 
-    <div *ngIf="response && !error" class="response">
-      <div class="section" *ngIf="response?.analysis">
-        <h4>📚 Reading Profile Analysis:</h4>
-        <p>{{ response.analysis }}</p>
-      </div>
+  <!-- If we got a response show what came back! -->
+  @if (response && !error) {
+  <div class="response">
 
-      <div class="section recommendations-list" *ngIf="response?.recommendations && response.recommendations.length > 0">
-        <h4>📖 Recommended Books:</h4>
-        <div class="book-grid">
-          <div class="book-card" *ngFor="let book of response.recommendations; let i = index">
-            <div class="book-number">{{ i + 1 }}</div>
-            <div class="book-details">
-              <h5 class="book-title">{{ book.title }}</h5>
-              <p class="book-author">by {{ book.author }}</p>
-              <p class="book-year">Published: {{ book.publication_year }}</p>
+    @if (response.analysis) {
+    <div class="section">
+      <h4>Reading Profile Analysis :</h4>
+      <p>{{ response.analysis }}</p>
             </div>
-          </div>
-        </div>
-      </div>
+    }
 
-      <div class="section" *ngIf="response?.reasoning">
-        <h4>🎯 Why These Books:</h4>
-        <p>{{ response.reasoning }}</p>
+    @if (response.recommendations) {
+    <div class="section recommendations-list">
+      <h4>Recommended Books:</h4>
+      <div class="book-grid">
+        @for (book of response.recommendations; track $index) {
+    <div class="book-card">
+      <div class="book-number">{{ $index + 1 }}</div>
+      <div class="book-details">
+        <h5 class="book-title">{{ book.title }}</h5>
+        <p class="book-author">by {{ book.author }}</p>
+        <p class="book-year">Published: {{ book.publication_year }}</p>
       </div>
+    </div>
+    }
     </div>
   </div>
+    }
+
+    @if (response.reasoning) {
+    <div class="section">
+      <h4>Why These Books:</h4>
+      <p>{{ response.reasoning }}</p>
+            </div>
+    }
+  </div>
+  }
+  </div>
+  }
 </div>

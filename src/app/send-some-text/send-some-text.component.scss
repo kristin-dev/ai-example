@@ -14,12 +14,18 @@ label {
 
 textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 15px;
+  border: 2px solid #ddd;
   font-size: 14px;
   resize: vertical;
   box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #052049;
+  }
 }
 
 .analyze-btn {
@@ -28,7 +34,6 @@ textarea {
   background-color: #052049;
   color: white;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
 }
@@ -52,7 +57,6 @@ textarea {
   background-color: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
-  border-radius: 4px;
 }
 
 .section {
@@ -60,7 +64,6 @@ textarea {
   background-color: #e4efe7;
   color: #155724;
   border: 1px solid #c3e6cb;
-  border-radius: 4px;
   margin-bottom: 10px;
 }
 

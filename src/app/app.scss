@@ -6,14 +6,11 @@ main {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(#c3cfe2 0%, #f5f7fa 100%);
 }
 
 .app-header {
   background: white;
-  // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #c3cfe2;
-  padding: 20px 0;
+  padding: 20px 0 0 0;
   margin-bottom: 30px;
 
   .header-content {
@@ -31,10 +28,6 @@ main {
       color: #052049;
       font-size: 32px;
       font-weight: 700;
-      // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      //-webkit-background-clip: text;
-      //-webkit-text-fill-color: transparent;
-      //background-clip: text;
     }
 
     .subtitle {
@@ -50,7 +43,6 @@ main {
   flex: 1;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -58,10 +50,11 @@ main {
 .tab-nav {
   display: flex;
   background: white;
-  // border-radius: 12px 12px 0 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   margin-bottom: 0;
+  border-left: 1px solid #c3cfe2;
+  border-right: 1px solid #c3cfe2;
+  border-top: 1px solid #c3cfe2;
 }
 
 .tab-button {
@@ -76,9 +69,9 @@ main {
   gap: 8px;
   font-size: 16px;
   font-weight: 500;
-  color: #052049BF;
+  color: rgba(143, 162, 192, 0.75);
   transition: all 0.3s ease;
-  border-bottom: 3px solid transparent;
+  border-right: 1px solid #c3cfe2;
 
   &:hover {
     background: #f8f9fa;
@@ -88,7 +81,6 @@ main {
   &.active {
     background: #f8f9fa;
     color: #052049BF;
-    border-bottom-color: #052049BF;
   }
 
   .tab-icon {
@@ -98,14 +90,17 @@ main {
   .tab-label {
     font-weight: 600;
   }
+
+  &:last-child {
+    border-right: none;
+  }
 }
 
 .tab-content {
   background: white;
-  // border-radius: 0 0 12px 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   min-height: 500px;
   position: relative;
+  border: 1px solid #c3cfe2;
 }
 
 .tab-panel {
@@ -147,7 +142,7 @@ main {
   }
 }
 
-// Responsive design
+// Responsive styles
 @media (max-width: 768px) {
   .app-header {
     .header-content {
@@ -163,7 +158,6 @@ main {
 
   .tab-nav {
     flex-direction: column;
-    // border-radius: 12px;
   }
 
   .tab-button {
@@ -179,12 +173,10 @@ main {
   }
 
   .tab-content {
-    // border-radius: 12px;
     margin-top: 20px;
   }
 
   .tab-panel {
-    padding: 20px;
   }
 }
 

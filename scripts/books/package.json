@@ -1,0 +1,24 @@
+{
+  "name": "books",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "package": "npm run build && cd dist && zip -r ../lambda-deployment.zip .",
+    "zip": "npm run clean && npm run build && cp package.json dist/ && cd dist && npm install --production && zip -r ../lambda-deployment.zip . && cd .."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.835.0",
+    "aws-lambda": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.150",
+    "@types/node": "^24.0.3",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,7 +1,6 @@
 <main>
   <header class="app-header">
     <div class="header-content">
-<!--      <img src="/logo.svg" alt="Logo" width="60px" class="logo">-->
       <div class="header-text">
         <h1>AI API Examples for UCSF</h1>
         <p class="subtitle">Created by <strong>Kristin Bradham</strong> • Tech Example for UCSF</p>
@@ -29,16 +28,8 @@
       <div class="tab-panel" [class.active]="activeTab === 'analyzer'">
         <app-send-some-text></app-send-some-text>
       </div>
-
-<!--      <div class="tab-panel" [class.active]="activeTab === 'about'">-->
-<!--        One more tab-->
-<!--      </div>-->
     </div>
   </div>
-
-  <footer class="app-footer">
-<!--    <p>Created by <strong>Kristin Bradham</strong> • Tech Example for UCSF</p>-->
-  </footer>
 </main>
 
-<router-outlet />
+<router-outlet></router-outlet>

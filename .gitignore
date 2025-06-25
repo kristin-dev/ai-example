@@ -5,9 +5,11 @@
 /tmp
 /out-tsc
 /bazel-out
+/scripts/books/dist
 
 # Node
 /node_modules
+/scripts/books/node_modules
 npm-debug.log
 yarn-error.log
 

@@ -1,6 +1,10 @@
 <div class="analyzer-container">
   <h2>Text Analyzer</h2>
-
+  <ng-container *ngIf="isLoading">
+    <div><p class="loading">
+      <img src="/Loading_icon2.gif"> This can take some time to load, in the mean time, what's your favorite mom/dad joke?
+    </p></div>
+  </ng-container>
   <div class="input-section">
     <label for="textInput">Enter text to analyze:</label>
     <textarea

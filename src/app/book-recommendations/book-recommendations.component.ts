@@ -1,57 +1,56 @@
-import { Component, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {Component, inject} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
+// Interfaces for types used in this code - usually in a model file :)
+// Everything is optional in case the AI messes up
 interface BookRecommendation {
-  title: string;
-  author: string;
-  publication_year: string;
+  title?: string;
+  author?: string;
+  publication_year?: string;
 }
 
 interface BookRecommendationResponse {
-  analysis: string;
-  recommendations: BookRecommendation[];
-  reasoning: string;
-  raw_response: string;
-  model: string;
-  status: string;
+  analysis?: string;
+  recommendations?: BookRecommendation[];
+  reasoning?: string;
+  raw_response?: string;
+  model?: string;
+  status?: string;
 }
 
 @Component({
   selector: 'app-book-recommendations',
   standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './book-recommendations.component.html',
-  styleUrl: './book-recommendations.component.scss'
+  imports: [
+    FormsModule
+  ],
+  styleUrls: ['./book-recommendations.component.scss'],
 })
+
 export class BookRecommendationsComponent {
+
+
   private http = inject(HttpClient);
-
-  inputText: string = 'Please recommend nonfiction books about teaching medicine, specifically books that mention anesthesiology.';
+  inputValue: string = '';
   response: BookRecommendationResponse | null = null;
-  error: string | null = null;
   isLoading: boolean = false;
+  error: string | null = null;
+  private apiUrl = 'https://pdlw8deep0.execute-api.us-west-2.amazonaws.com/dev/books';
 
-  // Using proxy URL instead of direct API URL to avoid CORS
-  private apiUrl = '/api/books';
-
-  getRecommendations(): void {
-    if (!this.inputText.trim()) {
-      return;
-    }
-
+  logInConsole(): void {
     this.isLoading = true;
-    this.error = null;
-    this.response = null;
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
 
+
+    console.log(this.inputValue.trim());
     const payload = {
-      text: this.inputText.trim()
+      text: this.inputValue.trim()
     };
 
     this.http.post<BookRecommendationResponse>(this.apiUrl, payload, { headers })
@@ -59,6 +58,7 @@ export class BookRecommendationsComponent {
         (data: BookRecommendationResponse) => {
           this.response = data;
           this.isLoading = false;
+          console.log('response', this.response);
         },
         (err: any) => {
           // Enhanced error handling for CORS and other issues
@@ -75,11 +75,5 @@ export class BookRecommendationsComponent {
           console.error('Error details:', err);
         }
       );
-  }
-
-  formatBookList(recommendations: BookRecommendation[]): string {
-    return recommendations.map((book, index) =>
-      `${index + 1}. ${book.title} by ${book.author} (${book.publication_year})`
-    ).join('\n');
   }
 }
