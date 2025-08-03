@@ -1,15 +1,11 @@
-// ========================================
 // IMPORTANT: AWS Lambda Runtime Compatibility
-// ========================================
 // This function is designed for AWS Lambda Node.js 22.x runtime
 // Compatible with AWS SDK v3 latest versions
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 import { BedrockRuntimeClient, InvokeModelCommand } from '@aws-sdk/client-bedrock-runtime';
 
-// ========================================
 // MAIN LAMBDA HANDLER
-// ========================================
 
 export const lambda_handler = async (
   event: APIGatewayProxyEvent | any,
@@ -22,14 +18,12 @@ export const lambda_handler = async (
     }
 
     // Initialize AWS Bedrock client (compatible with Node.js 22.x Lambda runtime)
-    // Using type assertion to avoid Node.js 24 compatibility issues during development
     const bedrock = new BedrockRuntimeClient({
       region: 'us-east-1'
     } as any);
 
-    // ========================================
-    // REQUEST BODY PARSING
-    // ========================================
+    // REQUEST BODY
+
     // Handle different event formats that AWS Lambda might receive
     let body: RequestBody | null = null;
 
@@ -75,9 +69,7 @@ export const lambda_handler = async (
 
     console.log(`Processing book description: ${bookDescription.substring(0, 100)}...`);
 
-    // ========================================
-    // LETS TALK TO BEDROCK AND ASK IT FOR THINGS
-    // ========================================
+    // LET'S TALK TO BEDROCK AND ASK IT FOR THINGS (Prompt Engineering)
 
     // Construct the prompt for Claude to generate book recommendations as JSON
     const prompt = {
@@ -122,9 +114,7 @@ Make sure to include exactly 10 book recommendations in the recommendations arra
     console.log("Bedrock call successful");
     console.log("Response status:", response.$metadata?.httpStatusCode);
 
-    // ========================================
-    // RESPONSE PROCESSING
-    // ========================================
+    // PROCESS THE RESPONSE
 
     // Validate that we received a response body
     const responseBodyRaw = (response as any).body;
@@ -167,7 +157,7 @@ Make sure to include exactly 10 book recommendations in the recommendations arra
       throw new Error(`Invalid JSON response from Claude: ${jsonError instanceof Error ? jsonError.message : 'Unknown parse error'}`);
     }
 
-    // Validate the parsed response structure
+    // Check the parsed response has all the right parts
     if (!parsedRecommendations.analysis || !parsedRecommendations.recommendations || !parsedRecommendations.reasoning) {
       console.error("Missing required fields in Claude's response:", parsedRecommendations);
       throw new Error("Claude's response is missing required fields (analysis, recommendations, or reasoning)");
@@ -177,7 +167,7 @@ Make sure to include exactly 10 book recommendations in the recommendations arra
       throw new Error("Recommendations field is not an array");
     }
 
-    // Return successful response with parsed JSON data
+    // Return successful response with good JSON data
     return createResponse(200, {
       analysis: parsedRecommendations.analysis,
       recommendations: parsedRecommendations.recommendations,
@@ -188,9 +178,6 @@ Make sure to include exactly 10 book recommendations in the recommendations arra
     });
 
   } catch (error) {
-    // ========================================
-    // ERROR HANDLING
-    // ========================================
     const err = error as Error;
     console.log(`Error occurred: ${err.message}`);
     console.log(`Error type: ${err.constructor.name}`);
@@ -204,10 +191,6 @@ Make sure to include exactly 10 book recommendations in the recommendations arra
   }
 };
 
-// ========================================
-// CREATE THE CORS RESPONSE
-// ========================================
-
 function createCorsResponse(): APIGatewayProxyResult {
   return {
     statusCode: 200,
@@ -220,9 +203,6 @@ function createCorsResponse(): APIGatewayProxyResult {
   };
 }
 
-// ========================================
-// CREATE THE RESPONSE TO SEND TO FRONT END
-// ========================================
 function createResponse(statusCode: number, bodyDict: SuccessResponse | ErrorResponse): APIGatewayProxyResult {
   return {
     statusCode,
@@ -237,9 +217,7 @@ function createResponse(statusCode: number, bodyDict: SuccessResponse | ErrorRes
   };
 }
 
-// ========================================
-// TYPE DEFINITIONS
-// ========================================
+// TYPES USED IN THIS FUNCTION
 
 interface BookRecommendation {
   title: string;

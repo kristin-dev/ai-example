@@ -13,19 +13,19 @@
     <textarea
       type="text"
       [(ngModel)]="inputValue"
-      placeholder="Tell us about books you've enjoyed, genres you like, or specific authors you love..."
+      placeholder="This demonstration is turned off, please let me know directly if you would like access."
       rows="6"
       cols="50"
       class="text-input"
     ></textarea>
 
     <!-- If there's no text in the input, disable the button so we don't make the call -->
-    <button
-      (click)="logInConsole()"
-      [disabled]=" isLoading"
-      class="recommend-btn">
-      {{ isLoading ? 'Finding Recommendations...' : 'Get Book Recommendations' }}
-    </button>
+<!--    <button-->
+<!--      (click)="submit()"-->
+<!--      [disabled]=" isLoading"-->
+<!--      class="recommend-btn">-->
+<!--      {{ isLoading ? 'Finding Recommendations...' : 'Get Book Recommendations' }}-->
+<!--    </button>-->
 
   <!-- Results section - only show if there are results and the api call has completed -->
   @if (response || error) {

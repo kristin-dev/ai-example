@@ -39,7 +39,7 @@ export class BookRecommendationsComponent {
   error: string | null = null;
   private apiUrl = 'https://pdlw8deep0.execute-api.us-west-2.amazonaws.com/dev/books';
 
-  logInConsole(): void {
+  submit(): void {
     this.isLoading = true;
 
     const headers = new HttpHeaders({
